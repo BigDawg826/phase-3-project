@@ -35,7 +35,28 @@ function Main({students, teachers}) {
         }
     )
     
-    
+    function handleSubmit(e){
+        e.preventDefault()
+        let formData = {
+            student_id,
+            teacher_id,
+            comment
+        }
+        fetch("http://localhost:9292/teacher_referrals", {
+            method: "POST", 
+            headers: {
+                "Content-Type" : "application/json"
+            }, 
+            body: JSON.stringify(formData)
+        })
+        .then((response) => response.json())
+        .then((data) =>{
+            console.log(data)
+        } )
+    }
+
+
+
   return (
     <>
     <div>
@@ -47,14 +68,14 @@ function Main({students, teachers}) {
     </div>
     <div>
         <p>Student Referral</p>
-        <form>
-            <label>Student ID: <input onChange={handleSetStudent_id} value={student_id} type="text" name="ID"/>
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="student">Student ID: <input onChange={handleSetStudent_id} value={student_id} id="student" type="text" name="ID"/>
             </label>
-            <label>Teacher ID: <input onChange={handleSetTeacher_id}value={teacher_id}type="text" name="ID"/>
+            <label htmlFor='teacher'>Teacher ID: <input onChange={handleSetTeacher_id}value={teacher_id}type="text" name="ID"/>
             </label>
-            <label>Date: <input onChange={handleSetDate}value={date}type="text" date="date" />
+            <label htmlFor='date'>Date: <input onChange={handleSetDate}value={date}type="text" date="date" />
             </label>
-            <label>Comments <input onChange={handleSetComment}value={comment}type="text" comments="comments" />
+            <label htmlFor='comment'>Comments <input onChange={handleSetComment}value={comment}type="text" comments="comments" />
             </label>
             <label><input type="submit" value="Submit" /></label>
         </form>
