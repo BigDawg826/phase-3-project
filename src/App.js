@@ -7,13 +7,15 @@ import Main from './Main';
 
 function App() {
   const [students, setStudents] = useState([])
+  const [teachers, setTeachers] = useState([])
+
   useEffect(() => {
     fetch("http://localhost:9292/students")
     .then((response) => response.json())
     .then((data) => setStudents(data))
   }, []
   )
-  const [teachers, setTeachers] = useState([])
+  
   useEffect(() => {
     fetch("http://localhost:9292/teachers")
     .then((response) => response.json())
@@ -21,12 +23,15 @@ function App() {
   },[]
   )
 
+  function handleTeacherDelete(id){
+    setTeachers(prev => prev.filter(teacher => id !== teacher.id))
+  }
 
   return (
     <div className="App">
       <Switch>
         <Route exact path="/">
-          <Main students={students} teachers={teachers}/>
+          <Main students={students} teachers={teachers} handleTeacherDelete={handleTeacherDelete}/>
         </Route>
 
 
