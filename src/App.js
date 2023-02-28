@@ -1,23 +1,38 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import Main from './Main';
+
+
 
 function App() {
+  const [students, setStudents] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:9292/students")
+    .then((response) => response.json())
+    .then((data) => setStudents(data))
+  }, []
+  )
+  const [teachers, setTeachers] = useState([])
+  useEffect(() => {
+    fetch("http://localhost:9292/teachers")
+    .then((response) => response.json())
+    .then((data) => setTeachers(data))
+  },[]
+  )
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route exact path="/">
+          <Main students={students} teachers={teachers}/>
+        </Route>
+
+
+
+
+      </Switch>
     </div>
   );
 }
