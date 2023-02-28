@@ -5,7 +5,7 @@ import TeacherCard from './TeacherCard'
 
 
 
-function Main({students, teachers}) {
+function Main({students, teachers, setTeachers}) {
 
     const [student_id, setStudent_id] = useState("")
     const [teacher_id, setTeacher_id] = useState("")
@@ -31,10 +31,19 @@ function Main({students, teachers}) {
         }
     )
     let teacherName = teachers.map(teacher => {
-        return <TeacherCard key={teacher.id} id={teacher.id} firstName={teacher.first_name} lastName={teacher.last_name}/>
+        return <TeacherCard key={teacher.id} id={teacher.id} firstName={teacher.first_name} lastName={teacher.last_name} handleTeacherDelete={handleTeacherDelete}/>
         }
     )
     
+    function handleTeacherDelete(id){
+        fetch(`http://localhost:9292/teacher/${id}`, {
+        method: "DELETE", 
+    }
+    .then(function handleDelete(id) {
+        setTeachers(prev => prev.filter(user => id !== user.id))
+    })
+    )}
+
     function handleSubmit(e){
         e.preventDefault()
         let formData = {
@@ -60,6 +69,8 @@ function Main({students, teachers}) {
   return (
     <>
     <div>
+        <h1>SCF/FlatIron Last Chance School</h1>
+        <br></br>
         <p>Inmates</p>
         {studentName}
         <br></br>
@@ -67,7 +78,7 @@ function Main({students, teachers}) {
         {teacherName}
     </div>
     <div>
-        <p>Student Referral</p>
+        <p>Student Incident Referral</p>
         <form onSubmit={handleSubmit}>
             <label htmlFor="student">Student ID: <input onChange={handleSetStudent_id} value={student_id} id="student" type="text" name="ID"/>
             </label>
