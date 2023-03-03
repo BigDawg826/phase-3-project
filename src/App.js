@@ -26,16 +26,17 @@ function App() {
   function handleTeacherDelete(id){
     setTeachers(prev => prev.filter(teacher => id !== teacher.id))
   }
+  function addTeacher(teacher){
+    // add new teacher to list of current teachers
+    setTeachers(prev => [...prev, teacher])
+  }
 
   return (
     <div className="App">
       <Switch>
         <Route exact path="/">
-          <Main students={students} teachers={teachers} handleTeacherDelete={handleTeacherDelete}/>
+          <Main students={students} teachers={teachers} handleTeacherDelete={handleTeacherDelete} addTeacher={addTeacher}/>
         </Route>
-
-
-
 
       </Switch>
     </div>

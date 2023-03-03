@@ -3,7 +3,7 @@ import React from 'react'
 function TeacherCard({firstName, lastName, id, handleTeacherDelete}) {
 
   function onDelete(id){
-    fetch(`http://localhost:9292/teacher/${id}`, {
+    fetch(`http://localhost:9292/teachers/${id}`, {
     method: "DELETE", 
 })
 .then(() => handleTeacherDelete(id)) 
