@@ -84,12 +84,15 @@ function Main({students, teachers, handleTeacherDelete, addTeacher}) {
         {teacherName}
     </div>
     <br></br>
+    <label><input type="submit" value="Add Teacher Form" /></label>
+    <br></br>
     {showTeacherForm && <form onSubmit={teacherHandleSubmit}>
-    <label><input type="submit" value="Add a teacher" /></label>
     <br></br>
         <label>Last name: <input onChange={(e)=>setLastName(e.target.value)} value={lastName} type="text"/></label>
         <label>First name: <input onChange={(e)=>setFirstName(e.target.value)} value={firstName} type="text"/></label>
         <label>sex: <input onChange={(e)=> setSex(e.target.value)} value={sex} type="text"/></label>
+        <br></br>
+        <label><input type="submit" value="< Add teacher >" /></label>
     </form>}
     <div>
         <p>Student Incident Referral</p>
